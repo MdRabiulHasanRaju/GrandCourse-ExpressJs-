@@ -1,0 +1,36 @@
+<%-include('../partials/header.ejs')%>
+
+    <div class="container my-5 my-container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card card-body">
+                    <h4 class="mb-3">Create a new account</h4>
+                    <form action="/playground/validator" method="POST">
+                        <div class="form-group">
+                            <label for="username">Enter You Username (Must Be Unique)</label>
+                            <input class="form-control" type="text" name="username" id="username">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Enter Your Valid Email</label>
+                            <input class="form-control" type="email" name="email" id="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Enter A Strong Password</label>
+                            <input class="form-control" type="password" name="password" id="password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Your Password</label>
+                            <input class="form-control" type="password" name="confirmPassword" id="confirmPassword">
+                        </div>
+                        <input type="submit" value="Sign Up" class="btn btn-primary">
+                    </form>
+                    <a href="/auth/login" class="my-3 text-center">Already have an account? Login Here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%-include('../partials/footer.ejs')%>
+        </body>
+
+        </html>
