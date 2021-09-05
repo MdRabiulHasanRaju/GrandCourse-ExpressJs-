@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const mongodbStore = require("connect-mongodb-session")(session);
+const flash = require("connect-flash");
 
 //Import Routes
 const authRoutes = require("./routes/authRoute");
@@ -11,11 +12,16 @@ const dashboardRoutes = require("./routes/dashboardRoute");
 //Import Middleware
 const { bindUserWithRequest } = require("./middleware/authMiddleware");
 const setLocals = require("./middleware/setLocals");
+const { application } = require("express");
 
 //playground route TODO: Should be remove
-// const validatorRoutes = require("./playground/validator");
+//const validatorRoutes = require("./playground/validator");
 
 const app = express();
+
+if (app.get("env").toLowerCase() == "development") {
+  app.use(morgan("dev"));
+}
 
 //session store
 const store = new mongodbStore({
@@ -30,7 +36,6 @@ app.set("views", "views");
 
 //middleware array
 const middleware = [
-  morgan("dev"),
   express.static("public"),
   express.urlencoded({ extended: true }),
   express.json(),
@@ -45,13 +50,13 @@ const middleware = [
   }),
   bindUserWithRequest(),
   setLocals(),
+  flash(),
 ];
 app.use(middleware);
 
 app.use("/auth", authRoutes);
 app.use("/dashboard", dashboardRoutes);
-
-// app.use("/playground", validatorRoutes); //TODO: Should be remove
+//app.use("/playground", validatorRoutes); //TODO: Should be remove
 
 app.get("/", (req, res) => {
   res.json({ msg: "home" });

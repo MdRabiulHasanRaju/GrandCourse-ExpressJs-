@@ -2,12 +2,14 @@ const bcrypt = require("bcrypt");
 const { validationResult } = require("express-validator");
 const User = require("../models/User");
 const errorFormatter = require("../utils/validationErrorFormatter");
+const Flash = require("../utils/Flash");
 
 exports.signupGetController = (req, res, next) => {
   res.render("pages/auth/signup", {
     title: "Create A New Account",
     error: {},
     value: {},
+    flashMessage: Flash.getMessage(req),
   });
 };
 
@@ -20,6 +22,7 @@ exports.signupPostController = async (req, res, next) => {
       title: "Create A New Account",
       error: errors.mapped(),
       value: { username, email, password },
+      flashMessage: Flash.getMessage(req),
     });
   }
 
@@ -45,6 +48,7 @@ exports.loginGetController = (req, res, next) => {
     title: "Login To Your Account",
     error: {},
     value: {},
+    flashMessage: Flash.getMessage(req),
   });
 };
 
@@ -58,6 +62,7 @@ exports.loginPostController = async (req, res, next) => {
       title: "Login To Your Account",
       error: errors.mapped(),
       value: { email, password },
+      flashMessage: Flash.getMessage(req),
     });
   }
 
@@ -68,14 +73,17 @@ exports.loginPostController = async (req, res, next) => {
         title: "Login To Your Account",
         error: { loginFail: "Invalid Credential!" },
         value: { email, password },
+        flashMessage: Flash.getMessage(req),
       });
     }
     let match = await bcrypt.compare(password, user.password);
     if (!match) {
+      req.flash("fail", "Invalid Credential!");
       return res.render("pages/auth/login", {
         title: "Login To Your Account",
         error: { loginFail: "Invalid Credential!" },
         value: { email, password },
+        flashMessage: Flash.getMessage(req),
       });
     }
     req.session.LoggedIn = true;
@@ -85,7 +93,8 @@ exports.loginPostController = async (req, res, next) => {
         console.log(e);
         return next(e);
       }
-      res.redirect("/dashboard");
+      req.flash("success", "Successfully Logged In");
+      return res.redirect("/dashboard");
     });
   } catch (e) {
     console.log(e);
