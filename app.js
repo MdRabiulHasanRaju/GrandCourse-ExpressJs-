@@ -1,70 +1,26 @@
 require("dotenv").config();
 const express = require("express");
-const morgan = require("morgan");
 const mongoose = require("mongoose");
-const session = require("express-session");
-const mongodbStore = require("connect-mongodb-session")(session);
-const flash = require("connect-flash");
 const config = require("config");
-
-//Import Routes
-const authRoutes = require("./routes/authRoute");
-const dashboardRoutes = require("./routes/dashboardRoute");
+const chalk = require("chalk");
 
 //Import Middleware
-const { bindUserWithRequest } = require("./middleware/authMiddleware");
-const setLocals = require("./middleware/setLocals");
-const { application } = require("express");
+const setMiddleware = require("./middleware/middlewares");
 
-//playground route TODO: Should be remove
-//const validatorRoutes = require("./playground/validator");
+//Import Routes
+const setRoute = require("./routes/routes");
 
 const app = express();
-
-console.log(config.get("name"));
-
-if (app.get("env").toLowerCase() == "development") {
-  app.use(morgan("dev"));
-}
-
-//session store
-const store = new mongodbStore({
-  uri: `mongodb://${config.get("dblink")}`,
-  collection: "sessions",
-  expires: 1000 * 60 * 60 * 24,
-});
 
 //setup view engine
 app.set("view engine", "ejs");
 app.set("views", "views");
 
-//middleware array
-const middleware = [
-  express.static("public"),
-  express.urlencoded({ extended: true }),
-  express.json(),
-  session({
-    secret: config.get("secret"),
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24,
-    },
-    store: store,
-  }),
-  bindUserWithRequest(),
-  setLocals(),
-  flash(),
-];
-app.use(middleware);
+//Using middleware from middleware dir
+setMiddleware(app);
 
-app.use("/auth", authRoutes);
-app.use("/dashboard", dashboardRoutes);
-//app.use("/playground", validatorRoutes); //TODO: Should be remove
-
-app.get("/", (req, res) => {
-  res.json({ msg: "home" });
-});
+//Using routes from routed dir
+setRoute(app);
 
 const PORT = process.env.PORT || 8080;
 mongoose
@@ -73,9 +29,9 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Database Connected.");
+    console.log(chalk.green("Database Connected."));
     app.listen(PORT, () => {
-      console.log(`server is running on port ${PORT}`);
+      console.log(chalk.green.inverse(`server is running on port ${PORT}`));
     });
   })
   .catch((e) => {

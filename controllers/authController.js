@@ -38,7 +38,6 @@ exports.signupPostController = async (req, res, next) => {
     await user.save();
     res.redirect("/auth/login");
   } catch (error) {
-    console.log(error);
     next(error);
   }
 };
@@ -90,14 +89,12 @@ exports.loginPostController = async (req, res, next) => {
     req.session.user = user;
     req.session.save((e) => {
       if (e) {
-        console.log(e);
         return next(e);
       }
       req.flash("success", "Successfully Logged In");
       return res.redirect("/dashboard");
     });
   } catch (e) {
-    console.log(e);
     next(e);
   }
 };
@@ -105,7 +102,6 @@ exports.loginPostController = async (req, res, next) => {
 exports.logoutController = (req, res, next) => {
   req.session.destroy((e) => {
     if (e) {
-      console.log(e);
       return next(e);
     }
     return res.redirect("/auth/login");
