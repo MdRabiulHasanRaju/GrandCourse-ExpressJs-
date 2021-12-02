@@ -1,7 +1,10 @@
 const router = require("express").Router();
 const { isAuthenticated } = require("../middleware/authMiddleware");
 const upload = require("../middleware/uploadMiddleware");
-const { uploadProfilePics } = require("../controllers/uploadController");
+const {
+  uploadProfilePics,
+  removeProfilePics,
+} = require("../controllers/uploadController");
 
 router.post(
   "/profilePics",
@@ -9,5 +12,7 @@ router.post(
   upload.single("profilePics"),
   uploadProfilePics
 );
+
+router.delete("/profilePics", isAuthenticated, removeProfilePics);
 
 module.exports = router;

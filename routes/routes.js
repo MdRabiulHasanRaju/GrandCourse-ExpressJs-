@@ -2,7 +2,7 @@ const authRoutes = require("./authRoute");
 const dashboardRoutes = require("./dashboardRoute");
 const playgroundRoute = require("../playground/play");
 const uploadRoute = require("./uploadRoute");
-
+const chalk = require("chalk");
 const routes = [
   {
     path: "/auth",

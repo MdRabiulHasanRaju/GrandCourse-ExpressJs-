@@ -17,10 +17,12 @@ const profileSchema = new Schema(
     },
     title: {
       type: String,
+      required: true,
       maxlength: 100,
     },
     bio: {
       type: String,
+      required: true,
       trim: true,
       maxlength: 500,
     },

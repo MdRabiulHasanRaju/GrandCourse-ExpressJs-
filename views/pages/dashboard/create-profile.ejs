@@ -8,12 +8,12 @@
                     <div class="col-md-8 offset-md-2">
                         <div class="card card-body my-5">
                             <h4>
-                                <%=title%>
+                                <%= title%>
                             </h4>
                             <div class="profile-pics">
                                 <label class="cabinet center-block">
                                     <figure>
-                                        <img src="<%=user.profilepics%>" class="gambar img-responsive img-thumbnail"
+                                        <img src="<%= user.profilepics%>" class="gambar img-responsive img-thumbnail"
                                             id="item-img-output" width="150" />
                                     </figure>
                                 </label>
@@ -52,31 +52,41 @@
                                     id="profilePicsFile" accept="image/*">
                                 <input type="button" name="removePics" value="Remove Profile Pic"
                                     class="btn btn-danger btn-sm-my-2" id="removeprofilepics"
-                                    style="display: <%= user.profilepics.includes('default.png')? 'none' : 'block' %>;">
+                                    style="display: <%= user.profilepics.includes('default.png')? 'none': 'block' %>;">
                             </form>
 
                             <div>
                                 <form action="/dashboard/create-profile" method="POST">
                                     <div class="form-group">
                                         <label for="name">Enter Your Name</label>
-                                        <input type="text" class="form-control" name="name"
+                                        <input type="text" class="form-control <%= error.name? 'is-invalid': ''%>" value="<%= value.name? value.name:"" %>" name="name"
                                             placeholder="Enter Your Name" id="name">
+                                        <div class="invalid-feedback">
+                                            <%= error.name? error.name: "" %>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Enter Your Email</label>
-                                        <input type="email" class="form-control" name="email" value="<%=user.email%>"
+                                        <input type="email" class="form-control" name="email" value="<%= user.email %>"
                                             id="email" disabled>
                                     </div>
                                     <div class="form-group">
                                         <label for="title">Enter Title</label>
-                                        <input type="text" class="form-control" name="title" placeholder="Enter Title"
-                                            id="title">
+                                        <input type="text" 
+                                        class="form-control <%= error.title? 'is-invalid': ''%>" value="<%= value.title? value.title:"" %>" 
+                                        name="title" placeholder="Enter Title"
+                                        id="title">
+                                        <div class="invalid-feedback">
+                                            <%= error.title? error.title: "" %>
+                                        </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="bio">Enter Your Bio</label>
-                                        <textarea type="text" class="form-control" name="bio"
-                                            placeholder="Enter Your Bio" id="bio">
-                                    </textarea>
+                                        <textarea type="text" class="form-control <%= error.bio? 'is-invalid': ''%>" name="bio"
+                                            placeholder="Enter Your Bio" id="bio"><%= value.bio? value.bio: "" %></textarea>
+                                        <div class="invalid-feedback">
+                                            <%= error.bio?error.bio: "" %>
+                                        </div>
                                     </div>
 
                                     <div>
@@ -87,8 +97,11 @@
                                                     <i class="fab fa-internet-explorer"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control" name="website"
+                                            <input type="text" class="form-control <%= error.website? 'is-invalid': ''%>" value="<%= value.website? value.website: "" %>" name="website"
                                                 placeholder="Website Link" id="weblink">
+                                            <div class="invalid-feedback">
+                                                <%= error.website? error.website: "" %>
+                                            </div>
                                         </div>
 
                                         <div class="input-group mb-3">
@@ -97,8 +110,11 @@
                                                     <i class="fab fa-facebook-square"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control" name="facebook"
+                                            <input type="text" class="form-control <%= error.facebook? 'is-invalid': ''%>" value="<%= value.facebook? value.facebook:"" %>" name="facebook"
                                                 placeholder="Facebook Link" id="facebook">
+                                            <div class="invalid-feedback">
+                                                <%= error.facebook? error.facebook: "" %>
+                                            </div>
                                         </div>
 
                                         <div class="input-group mb-3">
@@ -107,8 +123,11 @@
                                                     <i class="fab fa-twitter-square"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control" name="twitter"
+                                            <input type="text" class="form-control <%= error.twitter? 'is-invalid': ''%>" value="<%= value.twitter? value.twitter: "" %>" name="twitter"
                                                 placeholder="Twitter Link" id="twitter">
+                                            <div class="invalid-feedback">
+                                                <%= error.twitter? error.twitter: "" %>
+                                            </div>
                                         </div>
 
                                         <div class="input-group mb-3">
@@ -117,8 +136,11 @@
                                                     <i class="fab fa-github-square"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control" name="github"
+                                            <input type="text" class="form-control <%= error.github? 'is-invalid': ''%>" value="<%= value.github? value.github: "" %>" name="github"
                                                 placeholder="Github Link" id="github">
+                                            <div class="invalid-feedback">
+                                                <%= error.github? error.github: "" %>
+                                            </div>
                                         </div>
                                     </div>
                                     <input type="submit" class="btn btn-primary" value="Create Profile">
@@ -131,7 +153,7 @@
         </div>
     </div>
     <%-include('../../partials/footer.ejs')%>
-        
+
         <script src="/scripts/main.js"></script>
         </body>
 
