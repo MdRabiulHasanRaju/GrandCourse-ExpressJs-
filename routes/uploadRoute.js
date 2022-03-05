@@ -4,6 +4,7 @@ const upload = require("../middleware/uploadMiddleware");
 const {
   uploadProfilePics,
   removeProfilePics,
+  postImageUploadController,
 } = require("../controllers/uploadController");
 
 router.post(
@@ -11,6 +12,12 @@ router.post(
   isAuthenticated,
   upload.single("profilePics"),
   uploadProfilePics
+);
+router.post(
+  "/postImage",
+  isAuthenticated,
+  upload.single("post-image"),
+  postImageUploadController
 );
 
 router.delete("/profilePics", isAuthenticated, removeProfilePics);
