@@ -18,5 +18,6 @@ module.exports = [
       if (text.length > 5000) {
         throw new Error("Body Cannot Be Greater Than 5000 chars ");
       }
+      return true;
     }),
 ];

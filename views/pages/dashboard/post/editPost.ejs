@@ -5,26 +5,30 @@
             <div class="col-md-2"></div>
             <div class="col-md-10 my-5">
                <div class="card card-body py-5 mx-5">
-                <h4 class="my-3">Create Your Post</h4>
-                   <form action="/posts/create" method="POST" enctype="multipart/form-data">
+                   <h4 class="my-3">Edit Your Post</h4>
+                   <form action="/posts/edit/<%= post._id %>" method="POST" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="title">Enter Your Post Title</label>
-                            <input type="text" name="title" id="title" class="form-control <%= error.title?'is-invalid':''%>" value="<%= value.title? value.title:'' %>"> 
+                            <input type="text" name="title" id="title" class="form-control <%= error.title?'is-invalid':''%>" value="<%= post.title %>"> 
                             <div class="invalid-feedback">
                                 <%= error.title? error.title: "" %>
                             </div>
                         </div>
                         <div class="from-group">
                             <label for="tiny-mce-post-body">Enter Your Post Body</label>
-                            <textarea name="body" id="tiny-mce-post-body" class="form-control <%= error.body?'is-invalid':''%>"><%= value.body %></textarea>
+                            <textarea name="body" id="tiny-mce-post-body" class="form-control <%= error.body?'is-invalid':''%>"><%- post.body %></textarea>
                             <div class="invalid-feedback">
                                 <%= error.body? error.body: "" %>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="tags">Enter Some Tages (MAX 10)</label>
-                            <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3" class="form-control" value="<%= value.tags? value.tags:'' %>">
+                            <input type="text" name="tags" id="tags" placeholder="tag1, tag2, tag3" class="form-control" value="<%= post.tags.length > 0 ? post.tags.join(","):'' %>">
                         </div>
+                        <% if(post.thumbnail){ %>
+                            <label>Post Thumbnail</label>
+                            <img class="img-fluid mb-4" id="thumbnail" src="<%= post.thumbnail %>" alt="Post Thumbnail">
+                        <% } %>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Upload</span>
@@ -34,7 +38,7 @@
                                 <label for="inputGroupFile" class="custom-file-label"></label>
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Create Post">
+                        <input type="submit" class="btn btn-primary" value="Update Post">
                    </form>
                </div>
             </div>

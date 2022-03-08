@@ -15,6 +15,7 @@ window.onload = function () {
     height: 300,
     automatic_uploads: true,
     images_upload_url: "/uploads/postImage",
+    relative_urls: false,
     images_upload_handler: function (blobInfo, success, failure) {
       let header = new Headers();
       header.append("Accept", "Application/JSON");
