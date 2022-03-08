@@ -134,3 +134,25 @@ exports.editPostPostController = async (req, res, next) => {
     next(e);
   }
 };
+
+exports.deletePostGetController = async (req, res, next) => {
+  let postId = req.params.postId;
+
+  try {
+    let post = await Post.findOne({ author: req.user._id, _id: postId });
+    if (!post) {
+      let error = new Error("404 Page Not Found!");
+      error.status = 404;
+      throw error;
+    }
+    await Post.findOneAndDelete({ _id: postId });
+    await Profile.findOneAndUpdate(
+      { user: req.user._id },
+      { $pull: { posts: postId } }
+    );
+    req.flash("success", "Post Delete Successfully..");
+    return res.redirect("/posts");
+  } catch (e) {
+    next(e);
+  }
+};
