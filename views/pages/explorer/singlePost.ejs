@@ -1,0 +1,94 @@
+<%-include('../../partials/header')%>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card card-body">
+                <section>
+                    <h3><%=  post.title %> </h3>
+                    <div class="d-flex">
+                        <small>
+                            <%= moment(post.createdAt) %>,
+                            Posted By <%= post.author.username %>,  
+                            <%= post.readTime %> 
+                        </small>
+                        <% if (LoggedIn) { %>
+                            <span class="ml-auto bookmark" data-post="<%= post._id%>">
+                                <% if(bookmarks.includes(post._id)) {%>
+                                    <i class="fa-solid fa-bookmark">✔</i>
+                                <% }else { %>
+                                    <i class="fa-solid fa-bookmark"></i>
+                                <% } %> 
+                            </span>
+                        <% } %>  
+                    </div>
+                    <% if(post.thumbnail) {%>
+                        <img class="img-fluid my-2" src="<%= post.thumbnail %> " alt="">
+                    <% } %>  
+                    <section>
+                        <%- post.body %> 
+                    </section>
+
+                    <section class="my-5">
+                        <% if(!user){ %>
+                            <button class="btn btn-success btn-sm" disabled>
+                                Like ( <%= post.likes.length %> )
+                            </button>
+                            <button class="btn btn-danger btn-sm" disabled>
+                                Like ( <%= post.dislikes.length %> )
+                            </button>
+                            <p class="text-center text-muted mt-5">To Like And Comment Please <a href="/auth/login">Login</a></p>
+                        <% }else{ %> 
+                            <button class="btn btn-success btn-sm" id="likeBtn" data-post="
+                            <%= post._id %> ">
+                                <%= post.likes.includes(user._id)? 'Liked' : 'Like' %> ( <%= post.likes.length %> )
+                            </button>
+                            <button class="btn btn-danger btn-sm" id="likeBtn" data-post="
+                            <%= post._id %> ">
+                                <%= post.dislikes.includes(user._id)? 'Disliked' : 'Dislike' %> ( <%= post.dislikes.length %> )
+                            </button>
+                            <div class="mt-5">
+                                <label for="comment">Leave A Comment</label>
+                                <input type="text" class="form-control " id="comment" placeholder="Press Enter to Submit" data-post="<%= post._id %> ">
+                            </div>
+                            <div class="mt-5" id="comment-holder">
+                                <% if(post.comments.length==0) { %>
+                                    <p class="text-muted text-center">There is No Commnet!</p>
+                                <% }else {%>
+                                    <% for(let comment of post.comments.reverse()){ %>
+                                        <div class="media border">
+                                            <img class="rounded-circle mx-3 my-3" style="width: 40px;" src="<%= comment.user.profilePics %> ">
+                                            <div class="media-body my-3">
+                                                <p><%= comment.body %> </p>
+                                                <div name="replies">
+                                                    <% if(comment.replies.length>0) { %>
+                                                        <% for(let reply of comment.replies){ %>
+                                                            <div class="media mt-3">
+                                                                <img class="align-self-start mr-3 rounded-circle" style="width: 40px;" src="<%= replay.user.profilePics %> " >
+                                                                <div class="media-body">
+                                                                    <p><%= replay.body %> </p>
+                                                                </div>
+                                                            </div>
+                                                        <% } %> 
+                                                    <% } %> 
+                                                </div>
+                                                <div class="my-3">
+                                                    <input type="text" class="form-control" placeholder="Press Enter To Replay" data-comment="<%= comment._id %> ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% } %> 
+                                <% } %> 
+                            </div>
+                        <% } %> 
+                    </section>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%-include('../../partials/footer')%>
+    <script src="/scripts/bookmarks.js"></script>
+</body>
+</html>

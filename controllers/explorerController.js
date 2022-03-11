@@ -1,5 +1,6 @@
 const Flash = require("../utils/Flash");
 const Post = require("../models/Post");
+const Profile = require("../models/Profile");
 const moment = require("moment");
 
 function genDate(days) {
@@ -42,16 +43,88 @@ function genarateFilterObject(filter) {
 exports.explorerGetController = async (req, res, next) => {
   let filter = req.query.filter || "latest";
   let { filterObj, order } = genarateFilterObject(filter.toLowerCase());
+  let currentPage = parseInt(req.query.page) || 1;
+  let itemPerPage = 1;
+
   try {
     let posts = await Post.find(filterObj)
       .populate({ path: "author", select: "username" })
-      .sort(order == 1 ? "-createdAt" : "createdAt");
+      .sort(order == 1 ? "-createdAt" : "createdAt")
+      .skip(currentPage * itemPerPage - itemPerPage)
+      .limit(itemPerPage);
+
+    let totalPost = await Post.countDocuments();
+    let totalPage = totalPost / itemPerPage;
+
+    let bookmarks = [];
+    if (req.user) {
+      let profile = await Profile.findOne({ user: req.user._id });
+      if (profile) {
+        bookmarks = profile.bookmarks;
+      } else {
+        res.redirect("/dashboard/create-profile");
+      }
+    }
 
     res.render("pages/explorer/explorer", {
       title: "Explore All Post",
       filter,
       posts,
+      itemPerPage,
+      currentPage,
+      totalPage,
+      bookmarks,
       flashMessage: Flash.getMessage(req),
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.singlePostGetController = async (req, res, next) => {
+  let { postId } = req.params;
+  try {
+    let post = await Post.findById(postId)
+      .populate({
+        path: "author",
+        select: "username profilePics",
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          select: "username profilePics",
+        },
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "replies.user",
+          select: "username profilePics",
+        },
+      });
+
+    if (!post) {
+      let error = new Error("Page Not Found!");
+      error.status = 404;
+      throw error;
+    }
+
+    let bookmarks = [];
+    if (req.user) {
+      let profile = await Profile.findOne({ user: req.user._id });
+      if (profile) {
+        bookmarks = profile.bookmarks;
+      } else {
+        res.redirect("/dashboard/create-profile");
+      }
+    }
+
+    res.render("pages/explorer/singlePost", {
+      title: post.title,
+      flashMessage: Flash.getMessage(req),
+      post,
+      bookmarks,
     });
   } catch (e) {
     next(e);

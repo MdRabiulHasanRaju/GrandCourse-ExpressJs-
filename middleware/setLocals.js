@@ -2,7 +2,7 @@ const cheerio = require("cheerio");
 const moment = require("moment");
 module.exports = () => {
   return (req, res, next) => {
-    res.locals.user = req.user || {};
+    res.locals.user = req.user || false;
     res.locals.LoggedIn = req.session.LoggedIn || false;
     res.locals.truncate = (html) => {
       let node = cheerio.load(html);

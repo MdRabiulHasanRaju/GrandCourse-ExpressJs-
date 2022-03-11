@@ -65,7 +65,7 @@ exports.createPostPostController = async (req, res, next) => {
 };
 
 exports.editPostGetController = async (req, res, next) => {
-  let postId = req.params.postId;
+  let { postId } = req.params;
   try {
     let post = await Post.findOne({ author: req.user._id, _id: postId });
     if (!post) {
@@ -117,7 +117,7 @@ exports.editPostPostController = async (req, res, next) => {
     }
 
     await Post.findOneAndUpdate(
-      { id: post._id },
+      { _id: post._id },
       {
         $set: {
           title,
@@ -125,8 +125,7 @@ exports.editPostPostController = async (req, res, next) => {
           tags,
           thumbnail,
         },
-      },
-      { new: true }
+      }
     );
     req.flash("success", "Post Updated Successfully...");
     res.redirect("/posts/edit/" + post._id);
