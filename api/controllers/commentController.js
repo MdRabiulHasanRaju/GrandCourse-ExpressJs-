@@ -1,6 +1,5 @@
 const Post = require("../../models/Post");
 const Comment = require("../../models/Comment");
-const { post } = require("../routes/apiRoutes");
 
 exports.commentPostController = async (req, res, next) => {
   let { postId } = req.params;
@@ -21,15 +20,15 @@ exports.commentPostController = async (req, res, next) => {
   });
 
   try {
-    let createdCommnet = comment.save();
+    let createdComment = await comment.save();
     await Post.findOneAndUpdate(
       { _id: postId },
-      { $push: { comments: createdCommnet._id } }
+      { $push: { comments: createdComment._id } }
     );
 
-    let commentJSON = await Comment.findById(createdCommnet._id).populate({
+    let commentJSON = await Comment.findById(createdComment._id).populate({
       path: "user",
-      select: "profilePics username",
+      select: "profilepics username",
     });
 
     return res.status(201).json(commentJSON); //201 means new comment created

@@ -44,7 +44,7 @@ exports.explorerGetController = async (req, res, next) => {
   let filter = req.query.filter || "latest";
   let { filterObj, order } = genarateFilterObject(filter.toLowerCase());
   let currentPage = parseInt(req.query.page) || 1;
-  let itemPerPage = 1;
+  let itemPerPage = 2;
 
   try {
     let posts = await Post.find(filterObj)
@@ -87,20 +87,20 @@ exports.singlePostGetController = async (req, res, next) => {
     let post = await Post.findById(postId)
       .populate({
         path: "author",
-        select: "username profilePics",
+        select: "username profilepics",
       })
       .populate({
         path: "comments",
         populate: {
           path: "user",
-          select: "username profilePics",
+          select: "username profilepics",
         },
       })
       .populate({
         path: "comments",
         populate: {
           path: "replies.user",
-          select: "username profilePics",
+          select: "username profilepics",
         },
       });
 

@@ -55,14 +55,14 @@
                                 <% }else {%>
                                     <% for(let comment of post.comments.reverse()){ %>
                                         <div class="media border">
-                                            <img class="rounded-circle mx-3 my-3" style="width: 40px;" src="<%= comment.user.profilePics %> ">
+                                            <img class="rounded-circle mx-3 my-3" style="width: 40px;" src="<%= comment.user.profilepics %> ">
                                             <div class="media-body my-3">
                                                 <p><%= comment.body %> </p>
                                                 <div name="replies">
                                                     <% if(comment.replies.length>0) { %>
                                                         <% for(let reply of comment.replies){ %>
                                                             <div class="media mt-3">
-                                                                <img class="align-self-start mr-3 rounded-circle" style="width: 40px;" src="<%= replay.user.profilePics %> " >
+                                                                <img class="align-self-start mr-3 rounded-circle" style="width: 40px;" src="<%= replay.user.profilepics %> " >
                                                                 <div class="media-body">
                                                                     <p><%= replay.body %> </p>
                                                                 </div>
@@ -71,7 +71,7 @@
                                                     <% } %> 
                                                 </div>
                                                 <div class="my-3">
-                                                    <input type="text" class="form-control" placeholder="Press Enter To Replay" data-comment="<%= comment._id %> ">
+                                                    <input name="reply" type="text" class="form-control" placeholder="Press Enter To Replay" data-comment="<%= comment._id %> ">
                                                 </div>
                                             </div>
                                         </div>
@@ -89,5 +89,6 @@
 <%-include('../../partials/footer')%>
     <script src="/scripts/bookmarks.js"></script>
     <script src="/scripts/postreact.js"></script>
+    <script src="/scripts/comment.js"></script>
 </body>
 </html>
