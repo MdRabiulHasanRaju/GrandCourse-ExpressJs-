@@ -13,14 +13,14 @@ exports.likesGetController = async (req, res, next) => {
   try {
     let post = await Post.findById(postId);
 
-    if (post.dislikes.inlcudes(userId)) {
-      await Post.findByIdAndUpdate(
+    if (post.dislikes.includes(userId)) {
+      await Post.findOneAndUpdate(
         { _id: postId },
         { $pull: { dislikes: userId } }
       );
     }
 
-    if (post.likes.inlcudes(userId)) {
+    if (post.likes.includes(userId)) {
       await Post.findOneAndUpdate(
         { _id: postId },
         { $pull: { likes: userId } }
@@ -37,7 +37,7 @@ exports.likesGetController = async (req, res, next) => {
     let updatedPost = await Post.findById(postId);
     res.status(200).json({
       liked,
-      totolLikes: updatedPost.likes.length,
+      totalLikes: updatedPost.likes.length,
       totalDislikes: updatedPost.dislikes.length,
     });
   } catch (e) {
@@ -61,14 +61,14 @@ exports.dislikeGetController = async (req, res, next) => {
   try {
     let post = await Post.findById(postId);
 
-    if (post.likes.inlcudes(userId)) {
-      await Post.findByIdAndUpdate(
+    if (post.likes.includes(userId)) {
+      await Post.findOneAndUpdate(
         { _id: postId },
         { $pull: { likes: userId } }
       );
     }
 
-    if (post.dislikes.inlcudes(userId)) {
+    if (post.dislikes.includes(userId)) {
       await Post.findOneAndUpdate(
         { _id: postId },
         { $pull: { dislikes: userId } }
@@ -85,7 +85,7 @@ exports.dislikeGetController = async (req, res, next) => {
     let updatedPost = await Post.findById(postId);
     res.status(200).json({
       disliked,
-      totolLikes: updatedPost.likes.length,
+      totalLikes: updatedPost.likes.length,
       totalDislikes: updatedPost.dislikes.length,
     });
   } catch (e) {
