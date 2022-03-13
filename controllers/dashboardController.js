@@ -1,5 +1,6 @@
 const Flash = require("../utils/Flash");
 const Profile = require("../models/Profile");
+const Comment = require("../models/Comment");
 const User = require("../models/User");
 const { validationResult } = require("express-validator");
 const errorFormatter = require("../utils/validationErrorFormatter");
@@ -138,6 +139,51 @@ exports.editProfilePostController = async (req, res, next) => {
       error: errors.mapped(),
       value: updatedProfile,
       flashMessage: Flash.getMessage(req),
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.bookmarksGetController = async (req, res, next) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user._id }).populate({
+      path: "bookmarks",
+      Model: "Post",
+      select: "title thumbnail",
+    });
+
+    res.render("pages/dashboard/bookmarks", {
+      title: "My Bookmarks",
+      flashMessage: Flash.getMessage(req),
+      posts: profile.bookmarks,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+exports.commentsGetController = async (req, res, next) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user._id });
+    let comments = await Comment.find({ post: { $in: profile.posts } })
+      .populate({
+        path: "post",
+        select: "title",
+      })
+      .populate({
+        path: "user",
+        select: "username profilepics",
+      })
+      .populate({
+        path: "replies.user",
+        select: "username profilepics",
+      });
+    // res.json(comments);
+    res.render("pages/dashboard/comments", {
+      title: "My All Comments",
+      flashMessage: Flash.getMessage(req),
+      comments,
     });
   } catch (e) {
     next(e);

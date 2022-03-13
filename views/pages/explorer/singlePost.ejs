@@ -9,7 +9,7 @@
                     <div class="d-flex">
                         <small>
                             <%= moment(post.createdAt) %>,
-                            Posted By <%= post.author.username %>,  
+                            Posted By <a href="/author/<%= post.author._id %> "><%= post.author.username %></a>,  
                             <%= post.readTime %> 
                         </small>
                         <% if (user) { %>
@@ -53,8 +53,8 @@
                                 <% if(post.comments.length==0) { %>
                                     <p class="text-muted text-center">There is No Commnet!</p>
                                 <% }else {%>
-                                    <% for(let comment of post.comments.reverse()){ %>
-                                        <div class="media border">
+                                    <% for(let comment of post.comments){ %>
+                                        <div class="media border my-2">
                                             <img class="rounded-circle mx-3 my-3" style="width: 40px;" src="<%= comment.user.profilepics %> ">
                                             <div class="media-body my-3">
                                                 <p><%= comment.body %> </p>
@@ -62,9 +62,9 @@
                                                     <% if(comment.replies.length>0) { %>
                                                         <% for(let reply of comment.replies){ %>
                                                             <div class="media mt-3">
-                                                                <img class="align-self-start mr-3 rounded-circle" style="width: 40px;" src="<%= replay.user.profilepics %> " >
+                                                                <img class="align-self-start mr-3 rounded-circle" style="width: 40px;" src="<%= reply.user.profilepics %>" />
                                                                 <div class="media-body">
-                                                                    <p><%= replay.body %> </p>
+                                                                    <p><%= reply.body %> </p>
                                                                 </div>
                                                             </div>
                                                         <% } %> 

@@ -41,7 +41,7 @@ exports.commentPostController = async (req, res, next) => {
 };
 
 exports.replayCommentPostController = async (req, res, next) => {
-  let { commnetId } = req.params;
+  let { commentId } = req.params;
   let { body } = req.body;
 
   if (!req.user) {
@@ -51,19 +51,19 @@ exports.replayCommentPostController = async (req, res, next) => {
     });
   }
 
-  let replay = {
+  let reply = {
     body,
     user: req.user._id,
   };
 
   try {
     await Comment.findOneAndUpdate(
-      { _id: commnetId },
-      { $push: { replies: replay } }
+      { _id: commentId },
+      { $push: { replies: reply } }
     );
     res.status(201).json({
-      ...replay,
-      profilePics: req.user.profilePics,
+      ...reply,
+      profilepics: req.user.profilepics,
     });
   } catch (e) {
     console.log(e);

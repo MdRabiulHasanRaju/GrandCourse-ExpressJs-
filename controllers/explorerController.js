@@ -92,18 +92,19 @@ exports.singlePostGetController = async (req, res, next) => {
       .populate({
         path: "comments",
         populate: {
-          path: "user",
+          path: "replies.user",
           select: "username profilepics",
         },
       })
       .populate({
         path: "comments",
         populate: {
-          path: "replies.user",
+          path: "user",
           select: "username profilepics",
         },
       });
 
+    //res.json(post);
     if (!post) {
       let error = new Error("Page Not Found!");
       error.status = 404;

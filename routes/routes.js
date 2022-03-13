@@ -4,6 +4,8 @@ const playgroundRoute = require("../playground/play");
 const uploadRoute = require("./uploadRoute");
 const postRoute = require("./postRoute");
 const explorerRoute = require("./explorerRoute");
+const searchRoute = require("./searchRoute");
+const authorRoute = require("./authorRoute");
 const chalk = require("chalk");
 
 const apiRoutes = require("../api/routes/apiRoutes");
@@ -32,6 +34,14 @@ const routes = [
   {
     path: "/explorer",
     handler: explorerRoute,
+  },
+  {
+    path: "/search",
+    handler: searchRoute,
+  },
+  {
+    path: "/author",
+    handler: authorRoute,
   },
   {
     path: "/playground",

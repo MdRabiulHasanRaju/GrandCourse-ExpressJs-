@@ -1,0 +1,44 @@
+<%-include('../../partials/header')%>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h5 class="my-5">Search Result For - <%= term %> </h5>
+
+            <% if(posts.length==0) { %>
+                <p class="text-center text-muted">Nothing Found!</p>
+            <% }else { %>
+                <% for(let post of posts) { %>
+                    <div class="card card-body my-2">
+                        <a href="/explorer/<%= post._id %>" style="color:#222" class="">
+                            <h5><%= post.title %> </h5>
+                            <p><%= truncate(post.body) %> </p>
+                        </a>
+                    </div>
+                <% } %> 
+            <% } %> 
+
+            <% if(totalPage>1) { %>
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item <%= currentPage==1? 'disabled' : ''  %> ">
+                        <a href="<%=`/search?term=${term}&page=${currentPage-1}` %>" class="page-link">Previous </a>
+                        </li>
+                    <% for(let i=1;i<=totalPage;i++){ %>
+                        <li class="ml-2 page-item <%= currentPage==i? 'active' : ''  %> ">
+                        <a href="<%=`/search?term=${term}&page=${i}` %>" class="page-link"><%= i %> </a>
+                        </li>
+                    <% } %> 
+                        <li class="ml-2 page-item <%= currentPage==totalPage? 'disabled' : ''  %> ">
+                        <a href="<%=`/search?term=${term}&page=${currentPage+1}` %>" class="page-link">Next </a>
+                        </li>
+                    </ul> 
+                </nav>    
+            <% } %> 
+        </div>
+    </div>
+</div>
+
+<%-include('../../partials/footer')%>
+</body>
+</html>
