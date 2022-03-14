@@ -107,3 +107,49 @@ exports.logoutController = (req, res, next) => {
     return res.redirect("/auth/login");
   });
 };
+
+exports.changePasswordGetController = async (req, res, next) => {
+  res.render("pages/auth/changepassword", {
+    title: "Change Password",
+    error: {},
+    value: {},
+    flashMessage: Flash.getMessage(req),
+  });
+};
+exports.changePasswordPostController = async (req, res, next) => {
+  let { oldPassword, newPassword, confirmPassword } = req.body;
+
+  if (newPassword != confirmPassword) {
+    req.flash("fail", "Password Does Not Matched!");
+    return res.redirect("/auth/changepassword");
+  }
+
+  if (oldPassword.length == 0) {
+    req.flash("fail", "Old Password Cannot Be Empty!");
+    return res.redirect("/auth/changepassword");
+  }
+
+  if ((newPassword.length || confirmPassword.length) < 5) {
+    req.flash("fail", "Password Should be Greater Than 4 Charecters!");
+    return res.redirect("/auth/changepassword");
+  }
+
+  try {
+    let match = await bcrypt.compare(oldPassword, req.user.password);
+
+    if (!match) {
+      req.flash("fail", "Old Password Does Not Matched!");
+      return res.redirect("/auth/changepassword");
+    }
+
+    let hash = await bcrypt.hash(newPassword, 11);
+    await User.findOneAndUpdate(
+      { _id: req.user._id },
+      { $set: { password: hash } }
+    );
+    req.flash("success", "Password Changed Successfully");
+    return res.redirect("/auth/changepassword");
+  } catch (e) {
+    next(e);
+  }
+};
