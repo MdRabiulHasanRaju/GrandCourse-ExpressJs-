@@ -7,15 +7,11 @@ body {
   font-size: 16px;
 }
 footer {
-  padding: 20px 0px;
-  background-color: #222;
-  color: white;
-  text-align: center;
 }
 .margin-left {
   margin-left: 25%;
 }
-.navbar {
+/* .navbar {
   background: #fff;
   padding-left: 16px;
   padding-right: 16px;
@@ -44,7 +40,7 @@ footer {
 .navbar a {
   font-size: 15px;
 }
-.search-box {
+/* .search-box {
   position: relative;
 }
 .search-box input {
@@ -66,7 +62,7 @@ footer {
 .search-box i {
   color: #a0a5b1;
   font-size: 19px;
-}
+} */
 .navbar .sign-up-btn {
   min-width: 110px;
   max-height: 36px;
@@ -145,7 +141,7 @@ footer {
   position: relative;
   top: 2px;
 }
-.or-seperator {
+*/ .or-seperator {
   margin-top: 32px;
   text-align: center;
   border-top: 1px solid #e0e0e0;
@@ -224,7 +220,7 @@ input#removeprofilepics {
   text-decoration: none;
   font-family: sans-serif;
   font-weight: bold;
-  color: #19ab9c;
+  color: #07294d;
 }
 
 li.list-group-item {
@@ -238,4 +234,32 @@ li.list-group-item:hover {
 li.list-group-item:hover a {
   color: white;
   transition: all 0.5s;
+}
+.profile-class p {
+  font-size: 20px;
+  background: #000102;
+  padding: 16px;
+  width: 320px;
+  text-align: left;
+  border-radius: 6px;
+  color: white;
+  margin: 0 auto;
+  margin-top: 13px;
+  box-shadow: 1px 3px 18px -11px black;
+}
+
+.link-class {
+  font-size: 19px;
+  background: #ffc707;
+  padding: 14px;
+  width: 320px;
+  text-align: left;
+  border-radius: 6px;
+  margin: 0 auto;
+  margin-top: 13px;
+  box-shadow: 1px 3px 18px -11px black;
+}
+.link-class i {
+  font-size: 30px;
+  color: #03193c;
 }

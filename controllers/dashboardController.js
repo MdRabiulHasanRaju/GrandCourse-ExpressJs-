@@ -8,28 +8,40 @@ exports.dashboardGetController = async (req, res, next) => {
   try {
     let profile = await Profile.findOne({ user: req.user._id });
     if (profile) {
+      let author = await User.findById(req.user._id).populate({
+        path: "profile",
+        populate: {
+          path: "posts",
+        },
+      });
+
       return res.render("pages/dashboard/dashboard", {
         title: "My Dashboard",
+        author,
         flashMessage: Flash.getMessage(req),
       });
     }
-    res.redirect("/dashboard/create-profile");
+    return res.redirect("/dashboard/create-profile");
   } catch (e) {
     next(e);
   }
 };
 
 exports.createProfileGetController = async (req, res, next) => {
+  let sidebar = null;
   try {
     let profile = await Profile.findOne({ user: req.user._id });
     if (profile) {
+      sidebar = true;
       return res.redirect("/dashboard/edit-profile");
     }
+    sidebar = false;
     res.render("pages/dashboard/create-profile", {
       title: "Create Your Profile",
       flashMessage: Flash.getMessage(req),
       value: {},
       error: {},
+      sidebar,
     });
   } catch (e) {
     next(e);

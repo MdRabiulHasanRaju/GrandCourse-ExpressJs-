@@ -61,9 +61,10 @@ exports.explorerGetController = async (req, res, next) => {
       let profile = await Profile.findOne({ user: req.user._id });
       if (profile) {
         bookmarks = profile.bookmarks;
-      } else {
-        res.redirect("/dashboard/create-profile");
       }
+      // else {
+      //   res.redirect("/dashboard/create-profile");
+      // }
     }
 
     res.render("pages/explorer/explorer", {
@@ -116,9 +117,10 @@ exports.singlePostGetController = async (req, res, next) => {
       let profile = await Profile.findOne({ user: req.user._id });
       if (profile) {
         bookmarks = profile.bookmarks;
-      } else {
-        res.redirect("/dashboard/create-profile");
       }
+      //  else {
+      //   res.redirect("/dashboard/create-profile");
+      // }
     }
 
     res.render("pages/explorer/singlePost", {

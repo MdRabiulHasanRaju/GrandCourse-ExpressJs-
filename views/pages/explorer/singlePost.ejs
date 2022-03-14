@@ -12,7 +12,7 @@
                             Posted By <a href="/author/<%= post.author._id %> "><%= post.author.username %></a>,  
                             <%= post.readTime %> 
                         </small>
-                        <% if (user) { %>
+                        <% if (user && user.profile) { %>
                             <span class="ml-auto bookmark" data-post="<%= post._id%>">
                                 <% if(bookmarks.includes(post._id)) {%>
                                     <i class="fa-solid fa-bookmark">✔</i>

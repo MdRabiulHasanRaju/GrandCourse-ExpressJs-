@@ -1,15 +1,55 @@
 <%-include('../../partials/header.ejs')%>
 
-    <div class="container-fluid">
+    <div class="container container-fluid">
         <div class="row">
             <div class="col-md-2">
                 <%- include('../../partials/sidebar.ejs') %>
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <h1 class="text-center display-4">Dashboard</h1>
-                    </div>
+                <div class="card card-body my-5">
+                    <h5 class="my-1">My Profile</h5>
+                            <div class="text-center">
+                                <img class="align-self-start mr-3 rounded-circle imt-thumbnail img-fluid" src="<%= author.profilepics %>" alt="">
+                            </div>
+                            <div class="my-2 text-center profile-class">
+                                <p>Name: <strong><%= author.profile.name %> </strong></p> 
+                                <p>Title: <strong><%= author.profile.title %> </strong></p>
+                                <p>Bio: <%= author.profile.bio %></p>
+            
+                                <div class="link-class">
+                                    Social Links:
+                                    <% if(author.profile.links.website) { %>
+                                        <span>
+                                            <a href="<%= author.profile.links.website %>" target="_blank">
+                                                <i class="myIcon fab fa-internet-explorer"></i>
+                                            </a>
+                                        </span>
+                                    <% } %> 
+                                    <% if(author.profile.links.facebook) { %>
+                                        <span>
+                                            <a href="<%= author.profile.links.facebook %>" target="_blank">
+                                                <i class="myIcon fab fa-facebook-square"></i>
+                                            </a>
+                                        </span>
+                                    <% } %>
+                                    <% if(author.profile.links.twitter) { %>
+                                        <span>
+                                            <a href="<%= author.profile.links.twitter %>" target="_blank">
+                                                <i class="myIcon fab fa-twitter-square"></i>
+                                            </a>
+                                        </span>
+                                    <% } %>
+                                    <% if(author.profile.links.github) { %>
+                                        <span>
+                                            <a href="<%= author.profile.links.github %>" target="_blank">
+                                                <i class="myIcon fab fa-github-square"></i>
+                                            </a>
+                                        </span>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
                 </div>
             </div>
         </div>

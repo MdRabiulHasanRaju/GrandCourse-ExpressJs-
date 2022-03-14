@@ -1,39 +1,48 @@
 <%-include('../../partials/header.ejs')%>
 
-    <div class="container-fluid">
+    <div class="container container-fluid">
         <div class="row">
             <div class="col-md-2">
                 <%- include('../../partials/sidebar.ejs') %>
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <div class="card card-body my-5">
-                            <h5>List of My Bookmarks</h5>
-                            <div class="row">
+                <div class="card card-body my-5">
+                    <h5 class="my-1">List of My Bookmarks</h5>
+                        <div class="row">
                                 <% if(posts.length == 0){ %>
                                  <div class="text-center text-muted">
                                      <p>Empty Bookmarks!</p>
                                  </div>
                                 <% } else{ %>
-                                 <% for(let post of posts.reverse()){ %>
-                                     <div class="card col-sm-3 m-3">
-                                         <% if(post.thumbnail){ %>
-                                             <img class="card-img-top mt-3" src="<%= post.thumbnail %>" alt="<%= post.title %>">
-                                         <% } %>
-                                         <div class="card-body">
-                                             <a style="color: #222; text-decoration: none;" href="/explorer/<%= post._id %>">
-                                             <h5><%= post.title %></h5>
-                                             </a>
-                                         </div>
-                                     </div>
-                                 <% } %>
-         
+                                    <% for(let post of posts.reverse()){ %>
+                                        <div class="col-lg-4 col-md-6 col-sm-8">
+                                            <div style="height: 90%;" class="card singel-publication mt-30">
+                                                <div class="image">
+                                                    <% if(post.thumbnail){ %>
+                                                        <img style="height: 152px;" class="card-img-top mt-3" src="<%= post.thumbnail %>" alt="<%= post.title %>">
+                                                    <% } %>
+                                                    <div class="add-cart">
+                                                        <ul>
+                                                            <li><a href="/explorer/<%=post._id %> "><i class="">View</i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body cont">
+                                                    <div class="name">
+                                                        <a href="/explorer/<%=post._id %>"><h6><%= post.title %> </h6></a>
+                                                    </div>
+                                                    <div class="button text-right">
+                                                        <a href="/posts/edit/<%=post._id %>" class="main-btn">View</a>
+                                                    </div>
+                                                </div>
+                                            </div> <!-- singel publication -->
+                                        </div>
+                                <% } %>
                                 <% } %>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        </div>
             </div>
         </div>
     </div>

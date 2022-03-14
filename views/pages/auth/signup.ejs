@@ -1,5 +1,60 @@
 <%-include('../../partials/header.ejs')%>
 
+
+<div class="container my-4">
+    <div class="row">
+        <div class="offset-md-3">
+        <div class="col-lg-5 offset-lg-1 offset-md-3">
+            <div class="category-form">
+                <div class="form-title text-center">
+                    <h3>Create A New Account</h3>
+                    <span>Sign Up Now</span>
+                </div>
+                <div class="main-form">
+                    <form action="/auth/signup" method="POST">
+                        <div class="singel-form">
+                            <input class=" <%= error.username? 'is-invalid': '' %>" type="text" name="username" value="<%= value.username? value.username:"" %>" id="username" placeholder="You Username (Must Be Unique)">
+                            <div class="invalid-feedback">
+                                <%= error.username? error.username: "" %>
+                            </div>
+                        </div>
+                        <div class="singel-form">
+                            <input class="<%= error.email?"is-invalid":"" %>" type="email" name="email" id="email" value="<%= value.email?value.email:"" %>" type="email" placeholder="Your Email">
+                            <div class="invalid-feedback">
+                                <%= error.email?error.email:"" %>
+                            </div>
+                        </div>
+                        <div class="singel-form">
+                            <input class="<%= error.password?"is-invalid":"" %>" type="password" name="password" id="password" value="<%= value.password?value.password:"" %>" type="text" placeholder="Your Password">
+                            <div class="invalid-feedback">
+                                <%= error.password?error.password:"" %>
+                            </div>
+                        </div>
+                        <div class="singel-form">
+                            <input class="<%= error.confirmPassword? 'is-invalid': '' %>" type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm Your Password">
+                            <div class="invalid-feedback">
+                                <%= error.confirmPassword? error.confirmPassword: "" %>
+                            </div>
+                        </div>
+                        <!-- <div style="color: red;">
+                            <%= //error.loginFail?error.loginFail:"" %>
+                        </div> -->
+                        <div class="singel-form">
+                            <button class="main-btn" type="submit">SIGN UP</button>
+                        </div>
+                        <a href="/auth/login" class="loginBtn my-3 text-center">Already have an account? Login Here</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+
+
+<!--
 <div class="container my-5 my-container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -41,6 +96,9 @@
         </div>
     </div>
 </div>
+-->
+
+
 
 <%-include('../../partials/footer.ejs')%>    
 </body>

@@ -1,10 +1,174 @@
+<!--====== HEADER PART START ======-->
+
+<header id="header-part">
+  <div class="header-top d-none d-lg-block">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="header-contact text-lg-left text-center">
+            <ul>
+              <li>
+                <img src="/images/all-icon/map.png" alt="icon" /><span
+                  >Double Mooring, Chattogram</span
+                >
+              </li>
+              <li>
+                <img src="/images/all-icon/email.png" alt="icon" /><span
+                  >info@GrandCourse.com</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="header-opening-time text-lg-right text-center">
+            <p></p>
+          </div>
+        </div>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- header top -->
+
+  <div class="header-logo-support pt-30 pb-30">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-4">
+          <div class="logo">
+            <a href="/explorer">
+              <img class="logoImg" src="/images/logo.png" alt="Logo" />
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-8 col-md-8">
+          <div class="support-button float-right d-none d-md-block">
+            <div class="support float-left">
+              <div class="icon">
+                <img src="/images/all-icon/support.png" alt="icon" />
+              </div>
+              <div class="cont">
+                <p>Need Help? call us free</p>
+                <span>+880 187 526 2551</span>
+              </div>
+            </div>
+            <% if(!LoggedIn){ %>
+            <div class="button float-left">
+              <a href="/auth/signup" class="main-btn loginBtn">Sign Up</a>
+            </div>
+            <% } else{ %>
+            <div class="button float-left">
+              <a href="/auth/logout" class="main-btn loginBtn">Logout</a>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- header logo support -->
+
+  <div class="navigation" style="border-bottom: 1px solid #dfe3e8">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-9 col-8">
+          <nav class="navbar navbar-expand-lg">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <div
+              class="collapse navbar-collapse sub-menu-bar"
+              id="navbarSupportedContent"
+            >
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                  <a class="active" href="/explorer">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a href="about.html">About us</a>
+                </li>
+                <li class="nav-item">
+                  <a href="blog.html">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a href="contact.html">Contact</a>
+                </li>
+                <% if(LoggedIn){ %>
+                <li class="nav-item">
+                  <a href="/dashboard">Dashboard</a>
+                </li>
+                <% } %>
+              </ul>
+            </div>
+          </nav>
+          <!-- nav -->
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-3 col-4">
+          <div class="right-icon text-right">
+            <ul>
+              <li>
+                <a href="#" id="search"><i class="fa fa-search"></i></a>
+              </li>
+
+              <% if(!LoggedIn){ %>
+              <li>
+                <a href="/auth/login" style="color: #33cabb" class="loginBtn"
+                  >Login</a
+                >
+              </li>
+              <% } %>
+            </ul>
+          </div>
+          <!-- right icon -->
+        </div>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </div>
+</header>
+
+<!--====== HEADER PART ENDS ======-->
+
+<!--====== SEARCH BOX PART START ======-->
+
+<div class="search-box">
+  <div class="serach-form">
+    <div class="closebtn">
+      <span></span>
+      <span></span>
+    </div>
+    <form action="/search" method="GET">
+      <input type="text" name="term" placeholder="Search by keyword" />
+      <button><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+  <!-- serach form -->
+</div>
+
+<!--====== SEARCH BOX PART ENDS ======-->
+
+<!--
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container">
 		<a href="/explorer" class="navbar-brand">Grand<b>Course</b></a>
 		<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<!-- Collection of nav links, forms, and other content for toggling -->
 		<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
 			<div class="navbar-nav">
 				<a href="#" class="nav-item nav-link active">Home</a>
@@ -48,5 +212,5 @@
 					<% } %>
 
 			</div>
-</nav>
-</div>
+		</div>
+	</nav> -->
