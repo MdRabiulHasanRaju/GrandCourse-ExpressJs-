@@ -22,12 +22,17 @@ setMiddleware(app);
 //Using routes from routed dir
 setRoute(app);
 
+//mongodb://localhost:27017/grandcourse
+
 const PORT = process.env.PORT || 8080;
 mongoose
-  .connect(`mongodb://${config.get("dblink")}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    `mongodb+srv://grandcourse:usenormal1234@cluster0.y95ry.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => {
     console.log(chalk.green("Database Connected."));
     app.listen(PORT, () => {
