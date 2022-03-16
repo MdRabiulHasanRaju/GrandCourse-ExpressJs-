@@ -2,7 +2,8 @@
 
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <%- include("../../partials/explorerSidebar.ejs") %> 
+        <div class="col-md-6 offset-md-1">
             <section class="mb-5">
                 <a href="/explorer?filter=latest" class="btn <%= filter=='latest' ? 'btn-primary' : 'btn-secondary' %>" >Latest</a>
                 <a href="/explorer?filter=week" class="btn <%= filter=='week' ? 'btn-primary' : 'btn-secondary' %>" >Week</a>

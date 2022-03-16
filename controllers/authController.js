@@ -68,6 +68,7 @@ exports.loginPostController = async (req, res, next) => {
   try {
     let user = await User.findOne({ email });
     if (!user) {
+      req.flash("fail", "Invalid Credential!");
       return res.render("pages/auth/login", {
         title: "Login To Your Account",
         error: { loginFail: "Invalid Credential!" },

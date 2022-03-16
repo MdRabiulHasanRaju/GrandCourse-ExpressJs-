@@ -2,17 +2,18 @@
 
 <div class="container my-5">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <%- include("../../partials/explorerSidebar.ejs") %> 
+        <div class="col-md-6 offset-md-1">
             <div class="card card-body">
-                <div>
-                    <img class="imt-thumbnail img-fluid" src="<%= author.profilepics %>" alt="">
+                <div class="text-center bg-light">
+                    <img class="profile-img align-self-start mr-3 rounded-circle img-thumbnail img-fluid" src="<%= author.profilepics %>" alt="">
                 </div>
-                <div>
+                <div class="my-2 py-3 text-center bg-dark profile-class">
                     <p>Name: <strong><%= author.profile.name %> </strong></p> 
                     <p>Title: <strong><%= author.profile.title %> </strong></p>
                     <p>Bio: <%= author.profile.bio %></p>
 
-                    <div>
+                    <div class="link-class">
                         Social Links:
                         <% if(author.profile.links.website) { %>
                             <span>

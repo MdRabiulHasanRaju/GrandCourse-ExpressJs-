@@ -13,12 +13,12 @@ router.post(
   upload.single("profilePics"),
   uploadProfilePics
 );
-// router.post(
-//   "/postImage",
-//   isAuthenticated,
-//   upload.single("post-image"),
-//   postImageUploadController
-// );
+router.post(
+  "/postImage",
+  isAuthenticated,
+  upload.single("post-image"),
+  postImageUploadController
+);
 
 router.delete("/profilePics", isAuthenticated, removeProfilePics);
 
