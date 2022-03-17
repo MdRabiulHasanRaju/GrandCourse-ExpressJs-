@@ -1,6 +1,6 @@
 const authRoutes = require("./authRoute");
 const dashboardRoutes = require("./dashboardRoute");
-const playgroundRoute = require("../playground/play");
+//const playgroundRoute = require("../playground/play");
 const uploadRoute = require("./uploadRoute");
 const postRoute = require("./postRoute");
 const explorerRoute = require("./explorerRoute");
@@ -43,10 +43,10 @@ const routes = [
     path: "/author",
     handler: authorRoute,
   },
-  {
-    path: "/playground",
-    handler: playgroundRoute,
-  },
+  // {
+  //   path: "/playground",
+  //   handler: playgroundRoute,
+  // },
 
   {
     path: "/",
