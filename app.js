@@ -23,7 +23,6 @@ setMiddleware(app);
 setRoute(app);
 
 //mongodb://localhost:27017/grandcourse
-
 const PORT = process.env.PORT || 8080;
 mongoose
   .connect(

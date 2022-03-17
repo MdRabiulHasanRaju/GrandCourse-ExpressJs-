@@ -1,3 +1,4 @@
 {
+  "dblink": "DBLINK",
   "secret": "SECRET_KEY"
 }
