@@ -9,7 +9,7 @@ const { bindUserWithRequest } = require("./authMiddleware");
 const setLocals = require("./setLocals");
 //session store
 const store = new mongodbStore({
-  uri: `mongodb://${config.get("dblink")}`,
+  uri: `mongodb+srv://grandcourse:usenormal1234@cluster0.y95ry.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`,
   collection: "sessions",
   expires: 1000 * 60 * 60 * 24,
 });
