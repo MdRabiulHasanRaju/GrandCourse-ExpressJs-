@@ -2,8 +2,42 @@
 
 <div class="container my-5">
     <div class="row">
-        <%- include("../../partials/explorerSidebar.ejs") %> 
-        <div class="col-md-6 offset-md-1">
+        <% if(user && profile) { %> 
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+              <div class="inside-profile-sidebar-1"></div>
+              <div class="inside-profile-sidebar-2">
+                <img
+                  class="profile-sidebar-img align-self-start img-thumbnail img-fluid rounded-circle"
+                  src="<%= user.profilepics %>"
+                  alt=""
+                />
+              </div>
+              <div class="inside-profile-sidebar-3 text-center text-muted">
+                <h4><%= profile.name %></h4>
+                <p><%= profile.title %> </p>
+              </div>
+              <div class="profile-sidebar-recent">
+                <h6 class="mt-2">Recent Post</h6>
+
+                <% if(userPosts.profile.posts.length == 0){ %>
+                    <div class="text-center text-muted">
+                        <p>You Haven't Publish Any Post</p>
+                    </div>
+                   <% } else{ %>
+                    <% for(let userPost of userPosts.profile.posts.reverse()){ %>
+
+                <a class="text-muted my-2" href="/explorer/<%= userPost._id %>">
+                  <i class="fa-solid fa-blog"></i> <%= userPost.title %> 
+                </a>
+                <% } }%> 
+
+              </div>
+            </div>
+          </div>
+          <% } %> 
+          
+        <div class="<%= (user && profile) ? 'col-md-6 offset-md-1' : 'col-md-6 offset-md-3' %> ">
             <section class="mb-5">
                 <a href="/explorer?filter=latest" class="btn <%= filter=='latest' ? 'btn-primary' : 'btn-secondary' %>" >Latest</a>
                 <a href="/explorer?filter=week" class="btn <%= filter=='week' ? 'btn-primary' : 'btn-secondary' %>" >Week</a>

@@ -1,6 +1,7 @@
 const Flash = require("../utils/Flash");
 const Post = require("../models/Post");
 const Profile = require("../models/Profile");
+const User = require("../models/User");
 const moment = require("moment");
 
 function genDate(days) {
@@ -47,6 +48,8 @@ exports.explorerGetController = async (req, res, next) => {
   let itemPerPage = 2;
 
   try {
+    let profile = {};
+    let userPosts = {};
     let posts = await Post.find(filterObj)
       .populate({ path: "author", select: "username" })
       .sort(order == 1 ? "-createdAt" : "createdAt")
@@ -58,7 +61,13 @@ exports.explorerGetController = async (req, res, next) => {
 
     let bookmarks = [];
     if (req.user) {
-      let profile = await Profile.findOne({ user: req.user._id });
+      userPosts = await User.findOne({ _id: req.user._id }).populate({
+        path: "profile",
+        populate: {
+          path: "posts",
+        },
+      });
+      profile = await Profile.findOne({ user: req.user._id });
       if (profile) {
         bookmarks = profile.bookmarks;
       }
@@ -75,6 +84,8 @@ exports.explorerGetController = async (req, res, next) => {
       currentPage,
       totalPage,
       bookmarks,
+      profile,
+      userPosts,
       flashMessage: Flash.getMessage(req),
     });
   } catch (e) {
@@ -133,3 +144,5 @@ exports.singlePostGetController = async (req, res, next) => {
     next(e);
   }
 };
+
+exports.explorerProfileSidebar = async (req, res, next) => {};

@@ -2,11 +2,10 @@
 
 <div class="container my-5">
     <div class="row">
-        <%- include("../../partials/explorerSidebar.ejs") %> 
-        <div class="col-md-6 offset-md-1">
+        <div class="col-md-8 offset-md-2">
             <div class="card card-body">
                 <div class="text-center bg-light">
-                    <img class="profile-img align-self-start mr-3 rounded-circle img-thumbnail img-fluid" src="<%= author.profilepics %>" alt="">
+                    <img style="width: 170px;" class="profile-img align-self-start mr-3 rounded-circle img-thumbnail img-fluid" src="<%= author.profilepics %>" alt="">
                 </div>
                 <div class="my-2 py-3 text-center bg-dark profile-class">
                     <p>Name: <strong><%= author.profile.name %> </strong></p> 
