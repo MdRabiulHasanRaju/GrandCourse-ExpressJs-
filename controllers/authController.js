@@ -110,7 +110,7 @@ exports.logoutController = (req, res, next) => {
 };
 
 exports.changePasswordGetController = async (req, res, next) => {
-  res.render("pages/auth/changepassword", {
+  res.render("pages/auth/changePassword", {
     title: "Change Password",
     error: {},
     value: {},
