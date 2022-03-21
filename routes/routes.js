@@ -6,6 +6,7 @@ const postRoute = require("./postRoute");
 const explorerRoute = require("./explorerRoute");
 const searchRoute = require("./searchRoute");
 const authorRoute = require("./authorRoute");
+const errorRoute = require("./errorRoute");
 const chalk = require("chalk");
 
 const apiRoutes = require("../api/routes/apiRoutes");
@@ -43,6 +44,10 @@ const routes = [
     path: "/author",
     handler: authorRoute,
   },
+  {
+    path: "/error",
+    handler: errorRoute,
+  },
   // {
   //   path: "/playground",
   //   handler: playgroundRoute,
@@ -69,16 +74,18 @@ const routes = [
     path: "",
     handler: (err, req, res, next) => {
       if (err.status == 404) {
-        res.json({
-          message: "404 Page Not Found!",
-        });
+        // res.json({
+        //   message: "404 Page Not Found!",
+        // });
+        res.redirect("/error/404");
       } else {
         //for 500 internal server error
         console.log(chalk.red.inverse(err.message));
         console.log(err);
-        res.json({
-          message: "Internal Server Error!",
-        });
+        // res.json({
+        //   message: "Internal Server Error!",
+        // });
+        res.redirect("/error/500");
       }
     },
   },

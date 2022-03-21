@@ -1,0 +1,66 @@
+<style>
+
+.container {
+    line-height: 18px;
+  color: #707070;
+  background: url(../img/bg.jpg) no-repeat 50%;
+  background-size: cover;
+  background-attachment: fixed;
+  text-align: center; }
+
+a {
+  color: #33cabb; }
+
+a:hover {
+  text-decoration: underline; }
+
+.h1-error {
+  color: #ffc600;
+  font-size: 100px; }
+
+.h2-error {
+  font-size: 35px; }
+
+.p-error {
+  font-size: 18px; }
+
+.form-error {
+  margin: 50px 0; }
+
+  .form-error>input[type="text"] {
+  width: 50%;
+  border: 1px solid #e8e8e8;
+  padding: 10px;
+  color: #858585;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px; }
+
+  .form-error>button[type="submit"] {
+  background: none;
+  border: none;
+  color: #3498db;
+  margin-left: -40px;
+  font-size: 20px; }
+</style>
+
+<%- include('../../partials/header.ejs') %>
+<div class="container my-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="h1-error"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> 404</h1>
+            <h2 class="h2-error">Oops... Page Not Found!</h2>
+            
+              <form class="form-error" action="/search" method="GET">
+                <input type="text" placeholder="Search..." name="term">
+                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+              </form>
+    
+            <p class="p-error">Back To <a href="/explorer">Home</a></p>
+          </div>
+    </div>
+</div>
+<%- include('../../partials/footer.ejs') %>    
+</body>
+</html>

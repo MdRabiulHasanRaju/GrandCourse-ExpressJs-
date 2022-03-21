@@ -270,7 +270,15 @@ li.list-group-item:hover a {
   font-size: 30px;
   color: #03193c;
 }
-.profile-sidebar {
+@media (max-width: 768px) {
+  .profile-class p {
+    width: 100%;
+  }
+  .link-class {
+    width: 100%;
+  }
+}
+.p .profile-sidebar {
   background: #f3f2ef;
   padding: 10px;
   border-radius: 10px;
