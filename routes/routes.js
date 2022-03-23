@@ -57,7 +57,7 @@ const routes = [
     path: "/",
     handler: (req, res) => {
       // res.json({ msg: "home" });
-      res.redirect("/dashboard");
+      res.redirect("/explorer");
     },
   },
 
